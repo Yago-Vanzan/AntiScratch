@@ -113,6 +113,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var hotKeyRef: EventHotKeyRef?
     private var handlerRef: EventHandlerRef?
     private var defaultsObserver: NSObjectProtocol?
+    private let hotKeySignature = OSType(0x41534E54) // ASNT
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         registerHotKey()
@@ -133,31 +134,65 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func registerHotKey() {
+        if let hotKeyRef {
+            UnregisterEventHotKey(hotKeyRef)
+            self.hotKeyRef = nil
+        }
+        if let handlerRef {
+            RemoveEventHandler(handlerRef)
+            self.handlerRef = nil
+        }
+
         var eventType = EventTypeSpec(
             eventClass: OSType(kEventClassKeyboard),
             eventKind: UInt32(kEventHotKeyPressed)
         )
-        InstallEventHandler(
-            GetApplicationEventTarget(),
-            { _, _, _ in
-                DispatchQueue.main.async { AppVisibility.toggle() }
+        let eventTarget = GetEventDispatcherTarget()
+        let handlerStatus = InstallEventHandler(
+            eventTarget,
+            { _, event, userData in
+                guard let event, let userData else { return eventNotHandledErr }
+                var hotKeyID = EventHotKeyID()
+                let status = GetEventParameter(
+                    event,
+                    EventParamName(kEventParamDirectObject),
+                    EventParamType(typeEventHotKeyID),
+                    nil,
+                    MemoryLayout<EventHotKeyID>.size,
+                    nil,
+                    &hotKeyID
+                )
+                let delegate = Unmanaged<AppDelegate>.fromOpaque(userData).takeUnretainedValue()
+                guard status == noErr,
+                      hotKeyID.signature == delegate.hotKeySignature,
+                      hotKeyID.id == 1 else { return eventNotHandledErr }
+                DispatchQueue.main.async {
+                    AppVisibility.toggle()
+                }
                 return noErr
             },
             1,
             &eventType,
-            nil,
+            Unmanaged.passUnretained(self).toOpaque(),
             &handlerRef
         )
-        let signature = OSType(0x41534E54) // ASNT
-        let identifier = EventHotKeyID(signature: signature, id: 1)
-        RegisterEventHotKey(
+        guard handlerStatus == noErr else {
+            NSLog("Não foi possível instalar o manipulador do atalho: %d", handlerStatus)
+            return
+        }
+
+        let identifier = EventHotKeyID(signature: hotKeySignature, id: 1)
+        let registrationStatus = RegisterEventHotKey(
             UInt32(kVK_ANSI_A),
             UInt32(optionKey),
             identifier,
-            GetApplicationEventTarget(),
+            eventTarget,
             0,
             &hotKeyRef
         )
+        if registrationStatus != noErr {
+            NSLog("Não foi possível registrar o atalho ⌥ A: %d", registrationStatus)
+        }
     }
 }
 
