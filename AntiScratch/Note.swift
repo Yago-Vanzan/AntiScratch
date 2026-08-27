@@ -27,7 +27,7 @@ final class NoteStore: ObservableObject {
                 UserDefaults.standard.set(true, forKey: orderMigrationKey)
             }
         } else {
-            notes = [Note(text: "Capture ideas before they disappear.\n\nTry math:\n24 * 7 =\n\nOr type list: and press Return.")]
+            notes = [Note(text: "Anote suas ideias antes que elas desapareçam.\n\nExperimente math:\n24 * 7 =\n\nOu digite list: e pressione Enter.")]
             UserDefaults.standard.set(true, forKey: orderMigrationKey)
         }
         selectedID = notes.last?.id

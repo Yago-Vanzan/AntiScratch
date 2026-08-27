@@ -1,57 +1,57 @@
 # AntiScratch
 
 <p align="center">
-  <img src="docs/antiscratch-paper.png" width="310" alt="AntiScratch using the Paper theme">
+  <img src="docs/antiscratch-paper.png" width="310" alt="AntiScratch usando o tema Papel">
 </p>
 
 <p align="center">
-  A tiny, native scratchpad for macOS — always one shortcut away.
+  Um bloco de notas pequeno e nativo para macOS — sempre a um atalho de distância.
 </p>
 
-AntiScratch is a keyboard-first place for thoughts, quick calculations, checklists and timers. It is built entirely with SwiftUI, keeps notes on your Mac and stays out of the way until you press <kbd>⌥ A</kbd>.
+O AntiScratch é um espaço feito para registrar ideias, cálculos rápidos, listas e temporizadores usando o teclado. Desenvolvido inteiramente em SwiftUI, ele mantém as notas no seu Mac e fica escondido até você pressionar <kbd>⌥ A</kbd>.
 
-## Highlights
+## Destaques
 
-- Native macOS app with a compact, fixed-size window
-- Global <kbd>⌥ A</kbd> shortcut and menu bar access
-- Horizontal swipe between an ordered stack of notes
-- Automatic local persistence — no account and no cloud
-- Inline math, variables, percentages and unit conversions
-- Checklists, totals, averages, counters and timers
-- Mint, Aubergine and Paper themes
-- Optional Dock icon
+- App nativo para macOS com janela compacta e tamanho fixo
+- Atalho global <kbd>⌥ A</kbd> e acesso pela barra de menus
+- Deslize horizontal entre as notas, sempre na ordem
+- Salvamento local automático — sem conta e sem nuvem
+- Cálculos no texto, variáveis, porcentagens e conversões de unidades
+- Listas, somas, médias, contadores e temporizadores
+- Temas Hortelã, Berinjela e Papel
+- Ícone do Dock opcional
 
-## Smart note modes
+## Modos inteligentes
 
-Start the first line with a command followed by `:`.
+Comece a primeira linha com um comando seguido de `:`.
 
 ```text
 math:
-price: 120
-price + 15% = 138
+preço: 120
+preço + 15% = 138
 10 km to mi = 6.213712 mi
 ```
 
-| Command | What it does |
+| Comando | O que faz |
 | --- | --- |
-| `math:` | Calculates expressions after `=` and supports variables, percentages and conversions |
-| `list:` | Return creates a checkbox; Backspace on an empty item removes it |
-| `sum:` | Adds every number in the note |
-| `avg:` | Shows the average of every number |
-| `count:` | Counts lines, words and characters |
-| `timer: 5m` | Starts a countdown; `timer:` without a duration is a stopwatch |
+| `math:` | Calcula expressões depois de `=` e aceita variáveis, porcentagens e conversões |
+| `list:` | Enter cria uma caixa de seleção; apagar um item vazio remove a caixa |
+| `sum:` | Soma todos os números da nota |
+| `avg:` | Mostra a média de todos os números |
+| `count:` | Conta linhas, palavras e caracteres |
+| `timer: 5m` | Inicia uma contagem regressiva; `timer:` sem duração funciona como cronômetro |
 
-Lines beginning with `//` are ignored by aggregate modes.
+Linhas iniciadas com `//` são ignoradas pelos modos de cálculo agregado.
 
-## Install
+## Instalação
 
-1. Download `AntiScratch-1.0.0.dmg` from the [latest release](../../releases/latest).
-2. Drag AntiScratch to Applications.
-3. On first launch, right-click the app and choose **Open**. The public build is ad-hoc signed and is not notarized by Apple yet.
+1. Baixe `AntiScratch-1.0.0.dmg` na [versão mais recente](../../releases/latest).
+2. Arraste o AntiScratch para a pasta Aplicativos.
+3. Na primeira abertura, clique com o botão direito no app e escolha **Abrir**. A versão pública possui assinatura ad hoc e ainda não foi notarizada pela Apple.
 
-Requires macOS 14 Sonoma or newer.
+Requer macOS 14 Sonoma ou mais recente.
 
-## Build from source
+## Compilar o projeto
 
 ```bash
 git clone https://github.com/Yago-Vanzan/AntiScratch.git
@@ -59,22 +59,22 @@ cd AntiScratch
 open AntiScratch.xcodeproj
 ```
 
-To create the same distributable DMG:
+Para criar o mesmo DMG distribuível:
 
 ```bash
 ./scripts/build-dmg.sh
 ```
 
-The output is written to `dist/AntiScratch-1.0.0.dmg`.
+O arquivo será criado em `dist/AntiScratch-1.0.0.dmg`.
 
-## Privacy
+## Privacidade
 
-Notes are encoded and stored in the app's local `UserDefaults` container. AntiScratch has no analytics, account system or network code.
+As notas são codificadas e armazenadas no contêiner local `UserDefaults` do app. O AntiScratch não possui análises de uso, sistema de contas ou código de rede.
 
-## Project status
+## Estado do projeto
 
-This is an independent open-source project inspired by the immediacy of disposable scratchpads. It is not affiliated with AntiNote or its developers.
+Este é um projeto independente e de código aberto, inspirado na agilidade dos blocos de notas descartáveis. Não possui vínculo com o AntiNote nem com seus desenvolvedores.
 
-## License
+## Licença
 
 MIT © Yago Vanzan

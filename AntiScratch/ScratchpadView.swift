@@ -421,7 +421,7 @@ private struct TimerPanel: View {
                 Text(clock(display))
                     .font(.system(size: 25, weight: .semibold, design: .monospaced))
                 Spacer()
-                Button("Reset") { startedAt = Date() }
+                Button("Reiniciar") { startedAt = Date() }
             }
             .foregroundStyle(accent)
             .padding(.horizontal, 20)
@@ -539,9 +539,9 @@ private struct PagesView: View {
         VStack(spacing: 0) {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Pages")
+                    Text("Páginas")
                         .font(.system(size: 17, weight: .semibold))
-                    Text("Temporary note stack")
+                    Text("Pilha temporária de notas")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -553,7 +553,7 @@ private struct PagesView: View {
                         .background(.white.opacity(0.08), in: Circle())
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("Close Pages")
+                .accessibilityLabel("Fechar páginas")
             }
             .padding(.horizontal, 18)
             .padding(.vertical, 14)
@@ -572,7 +572,7 @@ private struct PagesView: View {
             Divider().opacity(0.45)
 
             HStack {
-                Text("\(store.notes.count) \(store.notes.count == 1 ? "note" : "notes")")
+                Text("\(store.notes.count) \(store.notes.count == 1 ? "nota" : "notas")")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 Spacer()
@@ -580,7 +580,7 @@ private struct PagesView: View {
                     store.addNote()
                     dismiss()
                 } label: {
-                    Label("New Note", systemImage: "plus")
+                    Label("Nova nota", systemImage: "plus")
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.small)
@@ -593,8 +593,8 @@ private struct PagesView: View {
 
     private func pageRow(_ note: Note, number: Int) -> some View {
         let lines = note.text.split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
-        let title = lines.first ?? "Blank note"
-        let preview = lines.dropFirst().first ?? (note.text.isEmpty ? "Empty page" : "Single-line note")
+        let title = lines.first ?? "Nota em branco"
+        let preview = lines.dropFirst().first ?? (note.text.isEmpty ? "Página vazia" : "Nota de uma linha")
         let selected = store.selectedID == note.id
 
         return Button {
@@ -652,35 +652,35 @@ private struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("App access") {
-                    LabeledContent("Global shortcut") {
+                Section("Acesso ao app") {
+                    LabeledContent("Atalho global") {
                         Text("⌥ A")
                             .font(.system(.body, design: .monospaced, weight: .semibold))
                     }
-                    Toggle("Show icon in menu bar", isOn: $showMenuBarIcon)
-                    Toggle("Hide icon from Dock", isOn: $hideDockIcon)
+                    Toggle("Mostrar ícone na barra de menus", isOn: $showMenuBarIcon)
+                    Toggle("Ocultar ícone do Dock", isOn: $hideDockIcon)
                 }
-                Section("Theme") {
+                Section("Tema") {
                     ForEach(AppTheme.all, id: \.name) { theme in
                         Button {
                             themeName = theme.name
                         } label: {
                             HStack {
                                 Circle().fill(theme.accent).frame(width: 18, height: 18)
-                                Text(theme.name).foregroundStyle(.primary)
+                                Text(theme.displayName).foregroundStyle(.primary)
                                 Spacer()
                                 if themeName == theme.name { Image(systemName: "checkmark") }
                             }
                         }
                     }
                 }
-                Section("Gestures") {
-                    Label("Swipe horizontally to change pages", systemImage: "hand.draw")
-                    Label("Your notes stay on this device", systemImage: "lock.shield")
+                Section("Gestos") {
+                    Label("Deslize horizontalmente para mudar de página", systemImage: "hand.draw")
+                    Label("Suas notas ficam neste dispositivo", systemImage: "lock.shield")
                 }
             }
-            .navigationTitle("Customize")
-            .toolbar { Button("Done") { dismiss() } }
+            .navigationTitle("Personalizar")
+            .toolbar { Button("Concluir") { dismiss() } }
         }
         .frame(width: 400, height: 430)
         .background(Color(nsColor: .windowBackgroundColor))
@@ -693,6 +693,15 @@ struct AppTheme {
     let foreground: Color
     let secondary: Color
     let accent: Color
+
+    var displayName: String {
+        switch name {
+        case "Mint": return "Hortelã"
+        case "Aubergine": return "Berinjela"
+        case "Paper": return "Papel"
+        default: return name
+        }
+    }
 
     static let all = [
         AppTheme(name: "Mint", background: Color(red: 0.025, green: 0.032, blue: 0.03), foreground: .white, secondary: .gray, accent: Color(red: 0.35, green: 0.96, blue: 0.68)),

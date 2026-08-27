@@ -80,16 +80,16 @@ enum NoteEngine {
         let total = numbers.reduce(0, +)
         let value = average && !numbers.isEmpty ? total / Double(numbers.count) : total
         let mode: NoteMode = average ? .average : .sum
-        return NoteAnalysis(mode: mode, results: [NoteResult(label: average ? "Average · \(numbers.count) values" : "Sum · \(numbers.count) values", value: format(value))])
+        return NoteAnalysis(mode: mode, results: [NoteResult(label: average ? "Média · \(numbers.count) valores" : "Soma · \(numbers.count) valores", value: format(value))])
     }
 
     private static func count(_ lines: [String]) -> NoteAnalysis {
         let active = lines.filter { !$0.trimmingCharacters(in: .whitespaces).hasPrefix("//") }
         let joined = active.joined(separator: "\n")
         return NoteAnalysis(mode: .count, results: [
-            NoteResult(label: "Lines", value: "\(active.filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }.count)"),
-            NoteResult(label: "Words", value: "\(joined.split { $0.isWhitespace }.count)"),
-            NoteResult(label: "Characters", value: "\(joined.count)")
+            NoteResult(label: "Linhas", value: "\(active.filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }.count)"),
+            NoteResult(label: "Palavras", value: "\(joined.split { $0.isWhitespace }.count)"),
+            NoteResult(label: "Caracteres", value: "\(joined.count)")
         ])
     }
 

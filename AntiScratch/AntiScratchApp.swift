@@ -21,55 +21,55 @@ struct AntiScratchApp: App {
         .windowStyle(.hiddenTitleBar)
         .commands {
             CommandGroup(replacing: .newItem) {
-                Button("New Note") {
+                Button("Nova nota") {
                     store.addNote()
                     AppVisibility.show()
                 }
                 .keyboardShortcut("n")
             }
             CommandGroup(after: .newItem) {
-                Button("Close Window") { AppVisibility.close() }
+                Button("Fechar janela") { AppVisibility.close() }
                     .keyboardShortcut("w")
             }
             CommandGroup(replacing: .appSettings) {
-                Button("Settings…") {
+                Button("Ajustes…") {
                     AppVisibility.show()
                     NotificationCenter.default.post(name: .showAntiScratchSettings, object: nil)
                 }
                 .keyboardShortcut(",")
             }
-            CommandMenu("Note") {
-                Button("New Note") {
+            CommandMenu("Nota") {
+                Button("Nova nota") {
                     store.addNote()
                     AppVisibility.show()
                 }
                 .keyboardShortcut("n")
-                Button("Delete Current Note", role: .destructive) { store.deleteSelected() }
+                Button("Apagar nota atual", role: .destructive) { store.deleteSelected() }
                     .keyboardShortcut(.delete, modifiers: [.command])
                 Divider()
-                Button("Show or Hide AntiScratch") { AppVisibility.toggle() }
+                Button("Mostrar ou ocultar AntiScratch") { AppVisibility.toggle() }
                     .keyboardShortcut("a", modifiers: .option)
             }
         }
 
         MenuBarExtra("AntiScratch", systemImage: "note.text", isInserted: $showMenuBarIcon) {
-            Button("Show or Hide AntiScratch") { AppVisibility.toggle() }
+            Button("Mostrar ou ocultar AntiScratch") { AppVisibility.toggle() }
                 .keyboardShortcut("a", modifiers: .option)
-            Button("New Note") {
+            Button("Nova nota") {
                 store.addNote()
                 AppVisibility.show()
             }
                 .keyboardShortcut("n")
-            Button("Close Window") { AppVisibility.close() }
+            Button("Fechar janela") { AppVisibility.close() }
                 .keyboardShortcut("w")
             Divider()
-            Button("Settings…") {
+            Button("Ajustes…") {
                 AppVisibility.show()
                 NotificationCenter.default.post(name: .showAntiScratchSettings, object: nil)
             }
                 .keyboardShortcut(",")
             Divider()
-            Button("Quit AntiScratch") { NSApp.terminate(nil) }
+            Button("Encerrar AntiScratch") { NSApp.terminate(nil) }
                 .keyboardShortcut("q")
         }
         .menuBarExtraStyle(.menu)
