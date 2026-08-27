@@ -1,0 +1,17 @@
+name: AntiScratch
+options:
+  bundleIdPrefix: com.yagovanzan
+settings:
+  base:
+    MACOSX_DEPLOYMENT_TARGET: 14.0
+    SWIFT_VERSION: 6.0
+targets:
+  AntiScratch:
+    type: application
+    platform: macOS
+    sources: [AntiScratch]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.yagovanzan.AntiScratch
+        INFOPLIST_FILE: AntiScratch/Info.plist
+        GENERATE_INFOPLIST_FILE: NO

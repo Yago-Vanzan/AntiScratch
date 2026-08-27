@@ -1,0 +1,11 @@
+.DS_Store
+DerivedData/
+build/
+dist/
+*.xcarchive
+*.dmg
+*.zip
+xcuserdata/
+*.xcuserstate
+AntiScratch.xcodeproj/project.xcworkspace/xcuserdata/
+AntiScratch.xcodeproj/xcuserdata/
