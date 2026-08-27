@@ -67,6 +67,12 @@ Para criar o mesmo DMG distribuível:
 
 O arquivo será criado em `dist/AntiScratch-1.0.0.dmg`.
 
+Para rodar os testes do motor de notas:
+
+```bash
+swift test
+```
+
 ## Privacidade
 
 As notas são codificadas e armazenadas no contêiner local `UserDefaults` do app. O AntiScratch não possui análises de uso, sistema de contas ou código de rede.
