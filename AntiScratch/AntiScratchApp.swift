@@ -151,7 +151,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let handlerStatus = InstallEventHandler(
             eventTarget,
             { _, event, userData in
-                guard let event, let userData else { return eventNotHandledErr }
+                guard let event, let userData else { return OSStatus(eventNotHandledErr) }
                 var hotKeyID = EventHotKeyID()
                 let status = GetEventParameter(
                     event,
@@ -165,7 +165,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 let delegate = Unmanaged<AppDelegate>.fromOpaque(userData).takeUnretainedValue()
                 guard status == noErr,
                       hotKeyID.signature == delegate.hotKeySignature,
-                      hotKeyID.id == 1 else { return eventNotHandledErr }
+                      hotKeyID.id == 1 else { return OSStatus(eventNotHandledErr) }
                 DispatchQueue.main.async {
                     AppVisibility.toggle()
                 }
